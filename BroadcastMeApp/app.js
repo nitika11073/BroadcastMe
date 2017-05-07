@@ -8,9 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
 var session      = require('express-session');
-
-var index = require('./routes/index');
-var users = require('./routes/users');
+var compressor = require('node-minify');
 
 var configDB = require('./config/database.js');
 
@@ -22,8 +20,6 @@ mongoose.connect(configDB.url);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -36,7 +32,6 @@ app.use(passport.session());
 app.use(flash());
 
 require('./config/passport.js')(passport);
-
 require('./routes/routes.js')(app, passport);
 
 // catch 404 and forward to error handler
@@ -58,3 +53,11 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+/*
+compressor.minify({
+	  compressor: 'uglifyjs',
+	  input: ['./public', 'foo2.js', 'foo3.js'],
+	  output: 'bar.js',
+	  callback: function (err, min) {}
+	});
+*/

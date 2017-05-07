@@ -13,7 +13,7 @@ module.exports = function(passport) {
         });
     });
 
-    passport.use('local-signup', new LocalStrategy({
+    passport.use('signup', new LocalStrategy({
     	usernameField : 'usernameSignup',
         passwordField : 'pwSignup',
         passReqToCallback : true 
@@ -31,6 +31,8 @@ module.exports = function(passport) {
 	                var newUser            = new User();
 	                newUser.username = username;
 	                newUser.password = newUser.generateHash(password);
+	                newUser.name	 = req.body.nameSignup;
+	                newUser.dob		 = req.body.dobSignup;
 	                newUser.save(function(err) {
 	                    if (err){
 	                        throw err;
@@ -42,7 +44,7 @@ module.exports = function(passport) {
         });
     }));
 
-    passport.use('local-login', new LocalStrategy({
+    passport.use('login', new LocalStrategy({
     	usernameField : 'usernameLogin',
         passwordField : 'pwLogin',
         passReqToCallback : true
