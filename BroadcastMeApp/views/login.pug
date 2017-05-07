@@ -1,26 +1,31 @@
 extends layout
 
 block content
-	header.site-header
-		div.navbar-header BroadcastMe
-		form#loginForm(method='POST' action='/login')
-			div.form-group
-				label(for='usernameLogin') Username:
-				input#usernameLogin.form-control(type='text', placeholder='username', name='usernameLogin')
-			div.form-group
-				label(for='pwLogin') Password:
-				input#pwLogin.form-control(type='password', name='pwLogin')
-			button.btn.btn-primary(type='submit') Login
+	nav.navbar.navbar-default.navbar-fixed-top 
+		div.navbar-header 
+			a.navbar-brand(href="/") BroadcastMe
+		div
+			form#loginForm(method='POST' action='/login' class='form-inline')
+				div.form-group
+					input#usernameLogin.form-control(type='text', placeholder='username', name='usernameLogin')
+				div.form-group
+					input#pwLogin.form-control(type='password', name='pwLogin')
+				button.btn.btn-primary(type='submit') Login
 
-	div.contentWrapper
-		div.leftWrapper
-		div.rightWrapper
-			form#signupForm(method='POST' action='/register')
+	div.container-fluid
+		div.col-md-6.form-wrapper
+			form#signupForm(method='POST' action='/register' class='col-md-8')
+				div.form-group
+					label(for='nameSignup') Name:
+					input#nameSignup.form-control(type='text', placeholder='Name', name='nameSignup')
 				div.form-group
 					label(for='usernameSignup') Username:
-					input#usernameSignup.form-control(type='text', placeholder='username', name='usernameSignup')
+					input#usernameSignup.form-control(type='text', placeholder='Username', name='usernameSignup')
 				div.form-group
 					label(for='pwSignup') Password:
 					input#pwSignup.form-control(type='password', name='pwSignup')
+				div.form-group
+					label(for='dobSignup') Password:
+					input#dobSignup.form-control(type='date', name='dobSignup')
 				button.btn.btn-primary(type='submit') Sign up
 					

@@ -2,3 +2,12 @@ extends layout
 
 block content
 	p welcome #{user.username}
+	
+	form#newMsg(method='POST' action='/addMessage')
+		div.form-group
+			label(for='message') Message:
+			input#message.form-control(type='text', placeholder='message', name='message')
+		button.btn.btn-primary(type='submit') Broadcast
+			
+	script(type='text/javascript', src='/javascripts/jquery-3.2.1.min.js')
+	script(type='text/javascript', src='/javascripts/userProfile.js')

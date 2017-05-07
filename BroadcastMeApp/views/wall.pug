@@ -1,4 +1,23 @@
 extends layout
 
 block content
-	p welcome #{user.username}
+	nav.navbar.navbar-default.navbar-fixed-top 
+		div.container-fluid
+			div.navbar-header 
+				a.navbar-brand(href="/") BroadcastMe
+			div.navbar-collapse
+				ul.nav.navbar-nav.navbar-right
+					li.dropdown
+						a.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") #{user.name}
+						ul.dropdown-menu
+							li
+								a(href='/profile') Profile
+							li
+								a(href='/logout') Logout
+								
+	div.cotainer-fluid
+		div.js-wall-posts #{posts}
+	
+	script(type='text/javascript', src='/javascripts/jquery-3.2.1.min.js')
+	script(type='text/javascript', src='/javascripts/bootstrap.min.js')
+						

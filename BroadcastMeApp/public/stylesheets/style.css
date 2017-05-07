@@ -1,8 +1,8 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.form-wrapper{
+	display: inline-block;
+	vertical-align: top;
 }
 
-a {
-  color: #00B7FF;
+.form-wrapper form{
+    margin: 0px auto;
 }
