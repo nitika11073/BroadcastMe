@@ -4,31 +4,40 @@ BroadcastMe.userProfile = (function(){
 	var cache, data, fn, api;
 	
 	cache = {
-			addMsgForm : $('#newMsg')
+			follow : $('#follow'),
+			unfollow : $('#unfollow')
 	};
 	
 	fn = {
 			_init : function() {
 				fn._bindEvents();
 			},
+			
 			_bindEvents : function() {
-				cache.addMsgForm.on('submit', fn._addMessage);
-				
+				cache.follow.on('click', fn._followUser);
+				cache.unfollow.on('click', fn._unfollowUser);
 			},
-			_addMessage : function(event) {
-				var _this = this;
-				var message = cache.addMsgForm.find("#message").val();
-				event.preventDefault();
+
+			_followUser : function() {
+				var followUsername = this.getAttribute("data-username");
 				$.ajax({
-					url: _this.action,
-					data : {message : message}
-				}).done(function(){
-					console.log("added");
+					type: 'POST',
+					url : '/follow',
+					data: {username : followUsername} 
+				}).done(function() {
+
 				});
 			},
 			
-			_followUser : function() {
-				
+			_unfollowUser : function() {
+				var unfollowUsername = this.getAttribute("data-username");
+				$.ajax({
+					type: 'POST',
+					url : '/unfollow',
+					data: {username : unfollowUsername} 
+				}).done(function() {
+
+				});
 			}
 	};
 	

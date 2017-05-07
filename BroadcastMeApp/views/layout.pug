@@ -1,9 +1,26 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/bootstrap/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap/bootstrap-grid.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body.site
-    block content
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/bootstrap/bootstrap.min.css')
+		link(rel='stylesheet', href='/stylesheets/bootstrap/bootstrap-grid.min.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body.site
+		nav.navbar.navbar-default
+			div.container-fluid
+				div.navbar-header 
+					a.navbar-brand(href="/") BroadcastMe
+				if user
+					ul.nav.navbar-nav.navbar-right
+						li
+							a(href='/profile') #{user.name}
+						li
+							a(href = '/logout') Logout
+				else
+					form#loginForm(method='POST' action='/login' class='navbar-form navbar-right')
+						div.form-group
+							input#usernameLogin.form-control(type='text', placeholder='username', name='usernameLogin')
+						div.form-group
+							input#pwLogin.form-control(type='password', name='pwLogin')
+						button.btn.btn-primary(type='submit') Login
+	block content

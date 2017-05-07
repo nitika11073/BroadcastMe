@@ -1,17 +1,6 @@
 extends layout
 
 block content
-	nav.navbar.navbar-default.navbar-fixed-top 
-		div.navbar-header 
-			a.navbar-brand(href="/") BroadcastMe
-		div
-			form#loginForm(method='POST' action='/login' class='form-inline')
-				div.form-group
-					input#usernameLogin.form-control(type='text', placeholder='username', name='usernameLogin')
-				div.form-group
-					input#pwLogin.form-control(type='password', name='pwLogin')
-				button.btn.btn-primary(type='submit') Login
-
 	div.container-fluid
 		div.col-md-6.form-wrapper
 			form#signupForm(method='POST' action='/register' class='col-md-8')

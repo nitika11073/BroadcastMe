@@ -1,23 +1,11 @@
 extends layout
 
 block content
-	nav.navbar.navbar-default.navbar-fixed-top 
-		div.container-fluid
-			div.navbar-header 
-				a.navbar-brand(href="/") BroadcastMe
-			div.navbar-collapse
-				ul.nav.navbar-nav.navbar-right
-					li.dropdown
-						a.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") #{user.name}
-						ul.dropdown-menu
-							li
-								a(href='/logout') Logout
-		
-	div.container-fluid.col-md-6
+	div.container-fluid.col-md-8
 		form#newMsg(method='POST' action='/addMessage')
 			div.form-group
 				label(for='message') Message:
-				input#message.form-control(type='text', placeholder='message', name='message')
+				textarea#message.form-control(rows='3', placeholder='Type your message here...', name='message', maxlength='140')
 			button.btn.btn-primary(type='submit') Broadcast
 									
 	div.cotainer-fluid
@@ -27,4 +15,3 @@ block content
 	script(type='text/javascript', src='/javascripts/jquery-3.2.1.min.js')
 	script(type='text/javascript', src='/javascripts/bootstrap.min.js')
 	script(type='text/javascript', src='/javascripts/userWall.js')
-						

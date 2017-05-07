@@ -1,13 +1,22 @@
 extends layout
 
 block content
-	p welcome #{user.username}
-	
-	form#newMsg(method='POST' action='/addMessage')
-		div.form-group
-			label(for='message') Message:
-			input#message.form-control(type='text', placeholder='message', name='message')
-		button.btn.btn-primary(type='submit') Broadcast
-			
+	- var msgs = profileUser.messages;
+	div.container-fluid
+		h3 #{profileUser.name}
+			if showFollowBtn
+				if isFollowing
+					button.btn.btn-success#unfollow(data-username = profileUser.username) Unfollow
+				else
+					button.btn.btn-success#follow(data-username = profileUser.username) Follow
+		
+		if isFollowing
+			each msg in msgs.length ? msgs : [''] 
+				div.panel.panel-default
+					div.panel-body= msg.content
+		else
+			h4
+				span.label.label-info Follow this user to view their messages
+		
 	script(type='text/javascript', src='/javascripts/jquery-3.2.1.min.js')
 	script(type='text/javascript', src='/javascripts/userProfile.js')

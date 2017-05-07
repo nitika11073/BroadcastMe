@@ -1,18 +1,11 @@
 .form-wrapper{
-	display: inline-block;
-	vertical-align: top;
+	padding: 0px 100px;
 }
 
-.form-wrapper form{
-    margin: 0px auto;
+#newMsg{
+	padding: 0px 100px 40px;
 }
 
 .wall-posts{
-	display: inline-block;
-	vertical-align: top;
-}
-
-.follow-users{
-	display: inline-block;
-	vertical-align: top;
+	padding: 0px 100px;
 }

@@ -9,10 +9,26 @@ module.exports = function(app, passport) {
         });
     });
     
-    app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile',{
-            user : req.user
-        });
+    app.get('/profile', function(req, res) {
+    	var queryUser = req.query.user ? req.query.user : (req.user ? req.user.username : '')
+    	var showFollow = req.user && req.user.username != queryUser ? true : false;
+    	var isFollow = req.user && (req.user.following.indexOf(queryUser)>-1 || req.user.username == queryUser) ? true : false ;
+    	if(!!queryUser){    		
+	    	User.findOne({ 'username' :  queryUser }, function(err, user) {
+	    		 if (err){
+	    			 res.send(err);
+	             } else{
+	            	 res.render('profile',{
+	            		 user : req.user,
+	            		 profileUser : user,
+	            		 isFollowing: isFollow,
+	            		 showFollowBtn : showFollow
+	            	 });            	 
+	             }
+	    	});
+    	} else {
+    		res.redirect('/login');
+    	}
     });
     
     app.get('/login', function(req, res) {
@@ -31,42 +47,57 @@ module.exports = function(app, passport) {
         failureFlash : true
     }));
     
-    app.use('/addMessage', function(req, res) {
+    app.post('/addMessage', function(req, res) {
     	User.findOne({ 'username' :  req.user.username }, function(err, user) {
     		 if (err){
     			 res.send(err);
              } else{
-            	 user.messages.push({datePosted: new Date(), content: req.query.message});
+            	 var msg = req.body.message
+            	 if(msg.length > 140){
+            		 msg = msg.substring(0,140);
+            	 }
+            	 user.messages.push({datePosted: new Date(), content: msg});
             	 user.save(function(err) {
                      if (err)
                          res.send(err);
-                     res.json({ message: 'Message Broadcasted' ,
-                    	 user: user.username,
-                    	 msg: user.messages});
+                     res.json({ message: 'Message Broadcasted'});
                  });
              }
 		});
 	});
     
-    app.use('/follow', function(req, res) {
+    app.post('/follow', function(req, res) {
     	User.findOne({ 'username' :  req.user.username }, function(err, user) {
     		 if (err){
                 res.send(err);
              } else{
-            	 user.following.push(req.query.username);
+            	 user.following.push(req.body.username);
             	 user.save(function(err) {
                      if (err)
                          res.send(err);
-                     res.json({ message: 'userAdded' ,
-                    	 user: user.username,
-                    	 following: user.following});
+                     res.json({ message: 'user followed'});
                  });
              }
     		 
 		});
 	});
     
-    app.use('/getFollowingPosts', function(req, res) {
+    app.post('/unfollow', function(req, res) {    	
+		User.findOne({ 'username' :  req.user.username }, function(err, user) {
+			if (err){
+                res.send(err);
+             } else{
+            	 user.following.splice(user.following.indexOf(req.body.username), 1);
+            	 user.save(function(err) {
+                     if (err)
+                         res.send(err);
+                     res.json({ message: 'user unfollowed'});
+            	 });
+             }
+		});
+	});
+    
+    app.get('/getFollowingPosts', function(req, res) {
     	User.findOne({ 'username' :  req.user.username }, function(err, user) {
     		 if (err){
     			 res.send(err);
@@ -77,9 +108,17 @@ module.exports = function(app, passport) {
             			  User.findOne({ 'username' : followUsername }, function(err, followUser) {
             				  if (err){
             					  reject();
-            				  }else{            					  
-	            				  followMessages = followMessages.concat(followUser.messages)
+            				  }else if(!!followUser){            					
+            					  followUser.messages.forEach(function(msg, index) {
+	        						  followMessages.push({
+	        							  date		: msg.datePosted,
+	        							  message	: msg.content,
+	        							  postedBy	: followUser.name
+	        						  })
+            					  })
 	            				  resolve();
+            				  } else{
+            					  resolve()
             				  }
             			  });            			  
             		  });
@@ -97,20 +136,22 @@ module.exports = function(app, passport) {
 	});
     
     
-    app.use('/getFollowingUsers', function(req, res) {
+    app.get('/getFollowingUsers', function(req, res) {
     	User.findOne({ 'username' :  req.user.username }, function(err, user) {
     		 if (err){
     			 res.send(err);
-              } else{
+              } else if(!!user){
             	  var followUsers = [];
             	  var promises = user.following.map(function(followUsername, index){
             		  return new Promise(function(resolve, reject){
             			  User.findOne({ 'username' : followUsername }, function(err, followUser) {
             				  if (err){
             					  reject();
-            				  }else{            					  
+            				  }else if(!!followUser){            					  
             					  followUsers.push({name : followUser.name, username : followUser.username});
 	            				  resolve();
+            				  } else{
+            					  resolve()
             				  }
             			  });            			  
             		  });
