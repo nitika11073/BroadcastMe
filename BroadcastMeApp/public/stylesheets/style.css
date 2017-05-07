@@ -6,3 +6,13 @@
 .form-wrapper form{
     margin: 0px auto;
 }
+
+.wall-posts{
+	display: inline-block;
+	vertical-align: top;
+}
+
+.follow-users{
+	display: inline-block;
+	vertical-align: top;
+}

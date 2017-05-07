@@ -11,13 +11,20 @@ block content
 						a.dropdown-toggle(data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") #{user.name}
 						ul.dropdown-menu
 							li
-								a(href='/profile') Profile
-							li
 								a(href='/logout') Logout
-								
+		
+	div.container-fluid.col-md-6
+		form#newMsg(method='POST' action='/addMessage')
+			div.form-group
+				label(for='message') Message:
+				input#message.form-control(type='text', placeholder='message', name='message')
+			button.btn.btn-primary(type='submit') Broadcast
+									
 	div.cotainer-fluid
-		div.js-wall-posts #{posts}
-	
+		div.wall-posts.col-md-8
+		div.follow-users.col-md-4
+		
 	script(type='text/javascript', src='/javascripts/jquery-3.2.1.min.js')
 	script(type='text/javascript', src='/javascripts/bootstrap.min.js')
+	script(type='text/javascript', src='/javascripts/userWall.js')
 						
