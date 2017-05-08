@@ -165,6 +165,32 @@ module.exports = function(app, passport) {
     	});
 	});
     
+    app.get('/getUsersList', function(req, res) {
+		User.find({}).select('username name').exec(function(err, users) {
+			if(err){
+				res.send(err)
+			} else if(!!users){
+				var usersArr = users.map(function(user, index) {
+					return {label: user.name, username: user.username}
+				});
+				res.json(usersArr);
+			}
+		});
+	});
+    
+    app.post('/search', function(req, res) {
+		User.find({name : new RegExp(req.body.query, 'i')}).select('username name').exec(function(err, users) {
+			if(err){
+				res.send(err)
+			} else if(!!users){
+				res.render('search', {
+					results : users,
+					user: req.user
+				})
+			}
+		});
+	});
+    
 };
 
 function isLoggedIn(req, res, next) {

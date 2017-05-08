@@ -25,7 +25,8 @@ BroadcastMe.userProfile = (function(){
 					url : '/follow',
 					data: {username : followUsername} 
 				}).done(function() {
-
+					cache.follow.addClass("hidden");
+					cache.unfollow.removeClass("hidden");
 				});
 			},
 			
@@ -36,7 +37,8 @@ BroadcastMe.userProfile = (function(){
 					url : '/unfollow',
 					data: {username : unfollowUsername} 
 				}).done(function() {
-
+					cache.unfollow.addClass("hidden");
+					cache.follow.removeClass("hidden");
 				});
 			}
 	};

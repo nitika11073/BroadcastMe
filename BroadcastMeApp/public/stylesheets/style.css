@@ -9,3 +9,32 @@
 .wall-posts{
 	padding: 0px 100px;
 }
+
+.ui-helper-hidden-accessible { 
+	display:none;
+}
+
+.search-form{
+	position: relative;
+}
+
+.ui-autocomplete{
+	list-style: none;
+	position: absolute;
+    border: 1px solid #ccc;
+    border-color: rgba(0, 0, 0, .15);
+    border-radius: 2px;
+    box-shadow: 0 4px 6px 2px rgba(0, 0, 0, .10);
+    background: #fff;
+    margin: 5px 0px;
+    padding: 0px;
+}
+
+.ui-menu-item-wrapper{
+	margin: 5px 0px;
+	padding: 0px 10px;
+}
+
+.ui-menu-item-wrapper:hover{
+	background: #f8f8f8;
+}

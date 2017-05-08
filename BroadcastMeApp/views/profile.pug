@@ -6,9 +6,11 @@ block content
 		h3 #{profileUser.name}
 			if showFollowBtn
 				if isFollowing
-					button.btn.btn-success#unfollow(data-username = profileUser.username) Unfollow
+					button.btn.btn-success.hidden#follow(data-username=profileUser.username) Follow
+					button.btn.btn-danger#unfollow(data-username=profileUser.username) Unfollow
 				else
-					button.btn.btn-success#follow(data-username = profileUser.username) Follow
+					button.btn.btn-success#follow(data-username=profileUser.username) Follow
+					button.btn.btn-danger.hidden#unfollow(data-username=profileUser.username) Unfollow
 		
 		if isFollowing
 			each msg in msgs.length ? msgs : [''] 
@@ -19,4 +21,6 @@ block content
 				span.label.label-info Follow this user to view their messages
 		
 	script(type='text/javascript', src='/javascripts/jquery-3.2.1.min.js')
+	script(type='text/javascript', src='/javascripts/jquery-ui.min.js')
 	script(type='text/javascript', src='/javascripts/userProfile.js')
+	script(type='text/javascript', src='/javascripts/userSearch.js')
