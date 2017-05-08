@@ -6,7 +6,9 @@ BroadcastMe.userWall = (function(){
 	cache = {
 			wallPosts : $(".wall-posts"),
 			followUsers : $(".follow-users"),
-			addMsgForm : $('#newMsg')
+			addMsgForm : $('#newMsg'),
+			postProgressBar : $(".post-loader"),
+			followProgressBar : $(".follow-loader")
 	};
 	
 	fn = {
@@ -14,14 +16,18 @@ BroadcastMe.userWall = (function(){
 				fn._bindEvents();
 				fn._getWallPosts();
 				fn._getFollowingUsers();
+				fn._showPageLoaders();
 			},
+			
 			_bindEvents : function() {
 				cache.addMsgForm.on('submit', fn._addMessage);
 			},
+			
 			_getWallPosts : function(){
 				$.ajax({
 					url : 'getFollowingPosts'
 				}).done(function(response) {
+					fn._hidePostLoader();
 					response.forEach(function(post, index) {
 						var newPost = $("<div/>");
 						newPost.addClass('panel panel-default');
@@ -31,10 +37,12 @@ BroadcastMe.userWall = (function(){
 					});
 				});
 			},
+			
 			_getFollowingUsers : function(){
 				$.ajax({
 					url : 'getFollowingUsers'
 				}).done(function(response) {
+					fn._hideFollowLoader();
 					var newUser = $("<ul/>");
 					newUser.addClass("list-group");
 					response.forEach(function(user, index) {						
@@ -43,6 +51,7 @@ BroadcastMe.userWall = (function(){
 					cache.followUsers.append(newUser);
 				});
 			},
+			
 			_addMessage : function(event) {
 				var _this = this;
 				var message = cache.addMsgForm.find("#message").val();
@@ -56,6 +65,21 @@ BroadcastMe.userWall = (function(){
 						cache.addMsgForm.find("#message").val("");
 					});
 				}
+			},
+			
+			_showPageLoaders : function() {
+				cache.postProgressBar.find(".progress-bar").attr("aria-valuenow", 100);
+				cache.postProgressBar.find(".progress-bar").attr("style", "width: 100%");
+				cache.followProgressBar.find(".progress-bar").attr("aria-valuenow", 100);
+				cache.followProgressBar.find(".progress-bar").attr("style", "width: 100%");
+			},
+			
+			_hidePostLoader : function() {
+				cache.postProgressBar.addClass('hidden');
+			},
+			
+			_hideFollowLoader : function() {
+				cache.followProgressBar.addClass('hidden');
 			}
 	}
 	

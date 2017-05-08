@@ -3,7 +3,7 @@ extends layout
 block content
 	- var msgs = profileUser.messages;
 	div.container-fluid
-		h3 #{profileUser.name}
+		h3.user-name #{profileUser.name}
 			if showFollowBtn
 				if isFollowing
 					button.btn.btn-success.hidden#follow(data-username=profileUser.username) Follow
@@ -13,6 +13,7 @@ block content
 					button.btn.btn-danger.hidden#unfollow(data-username=profileUser.username) Unfollow
 		
 		if isFollowing
+			h5 #{profileUser.name}'s Messages...
 			each msg in msgs.length ? msgs : [''] 
 				div.panel.panel-default
 					div.panel-body= msg.content

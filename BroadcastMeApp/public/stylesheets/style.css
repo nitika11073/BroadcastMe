@@ -38,3 +38,11 @@
 .ui-menu-item-wrapper:hover{
 	background: #f8f8f8;
 }
+
+.user-name{
+	margit-bottom: 20px;	
+}
+
+.user-name .btn{
+    margin-left: 30px;
+}

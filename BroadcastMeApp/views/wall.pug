@@ -10,6 +10,12 @@ block content
 									
 	div.cotainer-fluid
 		div.wall-posts.col-md-8
+			h4 Others are saying...
+			div.progress.post-loader
+				div.progress-bar.progress-bar-primary(role="progressbar" aria-valuenow="0"  aria-valuemin="0" aria-valuemax="100" style="width:0%")
 		div.follow-users.col-md-4
+			h4 You are following...
+			div.progress.follow-loader
+				div.progress-bar.progress-bar-primary(role="progressbar" aria-valuenow="0"  aria-valuemin="0" aria-valuemax="100" style="width:0%")
 		
 	script(type='text/javascript', src='/compiled-js/wallPage.js')
