@@ -53,11 +53,31 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-/*
+
 compressor.minify({
-	  compressor: 'uglifyjs',
-	  input: ['./public', 'foo2.js', 'foo3.js'],
-	  output: 'bar.js',
+	compressor: 'uglifyjs',
+	input: ['./public/javascripts/jquery-3.2.1.min.js', './public/javascripts/jquery-ui.min.js', './public/javascripts/userSearch.js'],
+	output: './public/compiled-js/common.js',
+	callback: function (err, min) {}
+});
+
+compressor.minify({
+	compressor: 'uglifyjs',
+	input: ['./public/compiled-js/common.js', './public/javascripts/userWall.js'],
+	output: './public/compiled-js/wallPage.js',
+	callback: function (err, min) {}
+});
+
+compressor.minify({
+	compressor: 'uglifyjs',
+	input: ['./public/compiled-js/common.js', './public/javascripts/userProfile.js'],
+	output: './public/compiled-js/profilePage.js',
+	callback: function (err, min) {}
+});
+
+compressor.minify({
+	  compressor: 'clean-css',
+	  input: ['./public/stylesheets/bootstrap/bootstrap-grid.min.css', './public/stylesheets/bootstrap/bootstrap.min.css', './public/stylesheets/style.css'],
+	  output: './public/compiled-css/common.min.css',
 	  callback: function (err, min) {}
 	});
-*/
