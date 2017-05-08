@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "mocha"
   },
   "dependencies": {
     "bcrypt-nodejs": "latest",
@@ -14,6 +15,7 @@
     "express": "~4.15.2",
     "express-session": "~1.0.0",
     "method-override": "~1.0.0",
+    "mocha": "^3.3.0",
     "mongoose": "~4.1.12",
     "mongoose-auto-increment": "^5.0.1",
     "morgan": "~1.8.1",
@@ -23,6 +25,7 @@
     "passport-local": "~0.1.6",
     "promise": "^7.1.1",
     "pug": "~2.0.0-beta11",
-    "serve-favicon": "~2.4.2"
+    "serve-favicon": "~2.4.2",
+    "supertest": "^3.0.0"
   }
 }
